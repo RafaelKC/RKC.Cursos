@@ -1,9 +1,13 @@
+using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
+using RKC.Cursos.Authentications;
 using RKC.Cursos.Context;
 
 namespace RKC.Cursos
@@ -18,13 +22,37 @@ namespace RKC.Cursos
         
         public void ConfigureServices(IServiceCollection services)
         {
+            var authenticationKey = Encoding.ASCII.GetBytes(Configuration.GetSection("CursosSettings").GetSection("AuthenticationKey").Value);
+
             services
                 .AddSingleton(Configuration)
                 .AddDbContext<CursosContext>(options =>
                 {
                     options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection"));
                 })
+                .AddTransient<IAuthenticationService, AuthenticationService>()
+                .AddCors()
                 .AddControllers();
+                services
+                    .AddAuthentication(options =>
+                    {
+                        options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                        options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                    })
+                    .AddJwtBearer(options =>
+                    {
+                        options.RequireHttpsMetadata = false;
+                        options.SaveToken = true;
+                        options.TokenValidationParameters = new TokenValidationParameters
+                        {
+                            ValidateIssuerSigningKey = true,
+                            IssuerSigningKey = new SymmetricSecurityKey(authenticationKey),
+                            ValidateIssuer = true,
+                            ValidIssuer = "RKC.Cursos",
+                            ValidateAudience = false,
+                            ValidateLifetime = false
+                        };
+                    });
 
         }
 
@@ -37,6 +65,14 @@ namespace RKC.Cursos
 
             app.UseRouting();
 
+            app.UseCors(e => e
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader());
+
+            app.UseAuthentication();
+            app.UseAuthorization();
+            
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
