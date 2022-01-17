@@ -46,7 +46,7 @@ namespace RKC.Cursos.Migrations
                     "8619d8fd-60e6-4682-8a98-2ce500531888",
                     "35265aa9-ca64-4923-b191-5a0d8e1c5c28",
                     "system@admin.com",
-                    "admin123"
+                    "7FCF4BA391C48784EDDE599889D6E3F1E47A27DB36ECC050CC92F259BFAC38AFAD2C68A1AE804D77075E8FB722503F3ECA2B2C1006EE6F6C7B7628CB45FFFD1D"
                 });
             migrationBuilder.InsertData(
                 table: "Users",
@@ -57,7 +57,7 @@ namespace RKC.Cursos.Migrations
                     "System",
                     "Admin",
                     "System Admin",
-                    UserRole.SystemAdmin,
+                    0,
                     false,
                     "system@admin.com"
                 });

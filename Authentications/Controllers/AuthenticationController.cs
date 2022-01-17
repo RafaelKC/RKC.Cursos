@@ -7,7 +7,7 @@ using RKC.Cursos.Users.Services;
 
 namespace RKC.Cursos.Authentications.Controllers
 {
-    [Route("/cursos/authentication")]
+    [Route("cursos/authentication")]
     public class AuthenticationController : ControllerBase
     {
         private readonly IUserService _userService;
@@ -24,21 +24,23 @@ namespace RKC.Cursos.Authentications.Controllers
             _authenticationService = authenticationService;
         }
 
-        [HttpPost("/login")]
+        [HttpPost("login")]
         [AllowAnonymous]
         public async Task<ActionResult<LoginOutput>> Login([FromBody] LoginInput loginInput)
         {
+            if (string.IsNullOrEmpty(loginInput.Password) || string.IsNullOrEmpty(loginInput.EmailOrUserName)) return BadRequest();
+            
             loginInput.Password = _credentialRepository.EncryptPassword(loginInput.Password);
 
             var user = await _userService.GetByEmailOrUserName(loginInput.EmailOrUserName);
             if (user == null) return NotFound();
 
             var credential = await _credentialRepository.GetByUserId(user.Id);
-            if (credential == null) return Forbid("Not found credential to user");
+            if (credential == null) return UnprocessableEntity("Not found credential to user");
 
             var loginValid = credential.Email == user.Email && credential.Password == loginInput.Password;
 
-            if (!loginValid) return Forbid("Invalid password");
+            if (!loginValid) return UnprocessableEntity("Invalid password");
 
             var accessToken = _authenticationService.GenerateToken(user);
 

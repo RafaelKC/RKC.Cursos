@@ -33,7 +33,7 @@ namespace RKC.Cursos.Users.Services
                 query = query.Where(user => user.Role == filterInput.FilterByUserRole.Value);
             }
 
-            if (string.IsNullOrEmpty(filterInput.FilterByUserName))
+            if (!string.IsNullOrEmpty(filterInput.FilterByUserName))
             {
                 query = query.Where(user => user.UserName.ToLower().Contains(filterInput.FilterByUserName.ToLower()));
             }
@@ -53,7 +53,10 @@ namespace RKC.Cursos.Users.Services
             if (userAlreadyCreated) return UserRepositoryResult.UserAlredyCreated;
             
             userInput.IsInactive = false;
-
+            if (string.IsNullOrEmpty(userInput.UserName))
+                userInput.UserName = $"{userInput.FirstName} {userInput.LastName}";
+            
+            
             var newUser = new User(userInput);
             await _context.Users.AddAsync(newUser);
 
@@ -76,6 +79,9 @@ namespace RKC.Cursos.Users.Services
 
         public async Task<UserRepositoryResult> Update(Guid userId, UserInput userInput)
         {
+            if (userId == Guid.Parse("35265aa9-ca64-4923-b191-5a0d8e1c5c28"))
+                return UserRepositoryResult.CantUpdateSystemAdmin;
+            
             var userCreated = await _context.Users.FirstOrDefaultAsync(user => user.Id == userId);
             if (userCreated == null) return UserRepositoryResult.NotFound;
             userCreated.Update(userInput);
@@ -103,7 +109,8 @@ namespace RKC.Cursos.Users.Services
 
         public async Task<UserOutput> GetByEmailOrUserName(string emailOrUserName)
         {
-            var user =  await _context.Users.FirstOrDefaultAsync(user => user.Email == emailOrUserName || user.UserName == emailOrUserName);
+            var user =  await _context.Users.FirstOrDefaultAsync(user => 
+                user.Email == emailOrUserName || user.UserName == emailOrUserName);
             return user != null ? new UserOutput(user) : null;
         }
     }
