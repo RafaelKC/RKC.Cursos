@@ -13,6 +13,8 @@ namespace RKC.Cursos.Users.Dtos
         public string FirstName { get; set; }
         [Required(AllowEmptyStrings = false)]
         public string LastName { get; set; }
+        [Required(AllowEmptyStrings = false)]
+        public string Email { get; set; }
         public string UserName { get; set; }
         [Required]
         public UserRole Role { get; set; }

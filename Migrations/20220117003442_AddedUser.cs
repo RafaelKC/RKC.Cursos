@@ -17,7 +17,8 @@ namespace RKC.Cursos.Migrations
                     LastName = table.Column<string>(type: "text", nullable: false),
                     UserName = table.Column<string>(type: "text", nullable: true),
                     Role = table.Column<int>(type: "integer", nullable: false),
-                    IsInactive = table.Column<bool>(type: "boolean", nullable: false)
+                    IsInactive = table.Column<bool>(type: "boolean", nullable: false),
+                    Email = table.Column<string>(type: "text", nullable: true),
                 },
                 constraints: table =>
                 {
@@ -26,7 +27,7 @@ namespace RKC.Cursos.Migrations
 
             migrationBuilder.InsertData(
                 table: "Users",
-                columns: new[] {"Id", "FirstName", "LastName", "UserName", "Role", "IsInactive"},
+                columns: new[] {"Id", "FirstName", "LastName", "UserName", "Role", "IsInactive", "Email"},
                 values: new object[]
                 {
                     "35265aa9-ca64-4923-b191-5a0d8e1c5c28",
@@ -34,7 +35,8 @@ namespace RKC.Cursos.Migrations
                     "Admin",
                     "System Admin",
                     UserRole.SystemAdmin,
-                    false
+                    false,
+                    "system@admin.com"
                 }
             );
         }

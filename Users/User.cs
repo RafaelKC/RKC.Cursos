@@ -16,6 +16,9 @@ namespace RKC.Cursos.Users
         public string FirstName { get; set; }
         [Required(AllowEmptyStrings = false)]
         public string LastName { get; set; }
+        [Required(AllowEmptyStrings = false)]
+        public string Email { get; set; }
+
         [Column("UserName")] 
         public string _userName { get; set; }
 
@@ -35,6 +38,7 @@ namespace RKC.Cursos.Users
             UserName = userInput.UserName;
             Role = userInput.Role;
             IsInactive = userInput.IsInactive;
+            Email = userInput.Email;
         }
         
         public User(UserInput userInput)
@@ -45,6 +49,7 @@ namespace RKC.Cursos.Users
             UserName = userInput.UserName;
             Role = userInput.Role;
             IsInactive = userInput.IsInactive;
+            Email = userInput.Email;
         }
     }
 }

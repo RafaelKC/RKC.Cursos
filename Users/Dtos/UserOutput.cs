@@ -9,6 +9,7 @@ namespace RKC.Cursos.Users.Dtos
         public Guid Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        public string Email { get; set; }
         public string UserName { get; set; }
         public UserRole Role { get; set; }
         public bool IsInactive { get; set; }
@@ -21,6 +22,7 @@ namespace RKC.Cursos.Users.Dtos
             UserName = userInput.UserName;
             Role = userInput.Role;
             IsInactive = userInput.IsInactive;
+            Email = userInput.Email;
         }
     }
 }
