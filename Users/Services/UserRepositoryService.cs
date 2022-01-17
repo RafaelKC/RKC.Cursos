@@ -38,7 +38,7 @@ namespace RKC.Cursos.Users.Services
                 query = query.Where(user => user.IsInactive == false);
             }
 
-            return await query.Select(user => new UserOutput(user)).ToListAsync();
+            return await query.OrderBy(user => user.FirstName).Select(user => new UserOutput(user)).ToListAsync();
         }
 
         public async Task<UserRepositoryResult> Create(UserInput userInput)
