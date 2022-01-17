@@ -5,7 +5,6 @@ using System.Text;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using RKC.Cursos.Users;
-using RKC.Cursos.Users.Enums;
 
 namespace RKC.Cursos.Authentications
 {
@@ -22,8 +21,7 @@ namespace RKC.Cursos.Authentications
         {
             var keyByte = Encoding.ASCII.GetBytes(_configuration.GetSection("CursosSettings").GetSection("AuthenticationKey").Value);
             var expirationTimeInMinutes = _configuration.GetSection("CursosSettings").GetSection("authenticationTimeoutInMinutes").Value;
-            var userRole = ((UserRole) Enum.Parse(typeof(UserRole), user.UserName)).ToString();
-            
+
             var tokenHandler = new JwtSecurityTokenHandler();
             var tokenDescripotor = new SecurityTokenDescriptor
             {
@@ -31,7 +29,7 @@ namespace RKC.Cursos.Authentications
                 {
                     new(ClaimTypes.Name, user.UserName),
                     new("UserId", user.Id.ToString()),
-                    new(ClaimTypes.Role, userRole)
+                    new(ClaimTypes.Role, user.Role.ToString())
                 }),
                 Expires = DateTime.UtcNow.AddMinutes(int.Parse(expirationTimeInMinutes)),
                 SigningCredentials = new SigningCredentials( new SymmetricSecurityKey(keyByte), SecurityAlgorithms.HmacSha256Signature),
