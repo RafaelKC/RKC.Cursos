@@ -13,5 +13,6 @@ namespace RKC.Cursos.Users.Services
         public Task<UserRepositoryResult> Create(UserInput userInput);
         public Task<UserRepositoryResult> Update(Guid userId, UserInput userInput);
         public Task<UserOutput> Get(Guid userId);
+        public Task<UserOutput> GetByEmailOrUserName(string emailOrUserName);
     }
 }

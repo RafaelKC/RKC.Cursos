@@ -9,5 +9,6 @@ namespace RKC.Cursos.Authentications.Services
         public Task<CredentialRepositoryResult> Create(Credential credentialInput);
         public Task<Credential> GetByUserId(Guid userId);
         public Task<CredentialRepositoryResult> Update(Guid userId, Credential credentialInput);
+        public string EncryptPassword(string password);
     }
 }

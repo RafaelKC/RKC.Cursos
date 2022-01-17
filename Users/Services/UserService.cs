@@ -100,5 +100,11 @@ namespace RKC.Cursos.Users.Services
             var user =  await _context.Users.FirstOrDefaultAsync(user => user.Id == userId);
             return user != null ? new UserOutput(user) : null;
         }
+
+        public async Task<UserOutput> GetByEmailOrUserName(string emailOrUserName)
+        {
+            var user =  await _context.Users.FirstOrDefaultAsync(user => user.Email == emailOrUserName || user.UserName == emailOrUserName);
+            return user != null ? new UserOutput(user) : null;
+        }
     }
 }

@@ -49,7 +49,7 @@ namespace RKC.Cursos.Authentications.Services
             return CredentialRepositoryResult.Ok;
         }
         
-        private static string EncryptPassword(string password)
+        public string EncryptPassword(string password)
         {
             var sha = new SHA512CryptoServiceProvider();
             var passwordBytes = sha.ComputeHash(Encoding.UTF8.GetBytes(password));

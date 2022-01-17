@@ -1,9 +1,9 @@
-﻿using RKC.Cursos.Users;
+﻿using RKC.Cursos.Users.Dtos;
 
 namespace RKC.Cursos.Authentications.Services
 {
     public interface  IAuthenticationService
     {
-        public string GenerateToken(User user);
+        public string GenerateToken(UserOutput user);
     }
 }

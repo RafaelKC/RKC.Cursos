@@ -3,14 +3,13 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using RKC.Cursos.Users.Abstractions;
 using RKC.Cursos.Users.Dtos;
 using RKC.Cursos.Users.Enums;
 using RKC.Cursos.Users.Services;
 
 namespace RKC.Cursos.Users.Controllers
 {
-    [Route("cursos/user")]
+    [Route("/cursos/user")]
     public class UserController : ControllerBase
     {
         private readonly IUserService _repositoryService;
@@ -45,7 +44,7 @@ namespace RKC.Cursos.Users.Controllers
             return Ok(await _repositoryService.GetList(filterInput));
         }
         
-        [HttpGet("{userId:guid}")]
+        [HttpGet("/{userId:guid}")]
         [Authorize(Roles = "SystemAdmin")]
         public async Task<ActionResult<UserOutput>> Update([FromRoute] Guid userId, [FromBody] UserInput userInput)
         {
