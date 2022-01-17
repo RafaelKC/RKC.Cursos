@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using RKC.Cursos.Users;
 
 namespace RKC.Cursos.Context
 {
@@ -8,6 +9,8 @@ namespace RKC.Cursos.Context
         {
             Database.Migrate();
         }
+        
+        public DbSet<User> Users { get; set; }
 
     }
 }
