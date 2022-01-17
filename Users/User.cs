@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using RKC.Cursos.Users.Abstractions;
+using RKC.Cursos.Users.Dtos;
 using RKC.Cursos.Users.Enums;
 
 namespace RKC.Cursos.Users
@@ -26,5 +27,24 @@ namespace RKC.Cursos.Users
         }
         public UserRole Role { get; set; }
         public bool IsInactive { get; set; }
+
+        public void Update(IUser userInput)
+        {
+            FirstName = userInput.FirstName;
+            LastName = userInput.LastName;
+            UserName = userInput.UserName;
+            Role = userInput.Role;
+            IsInactive = userInput.IsInactive;
+        }
+        
+        public User(UserInput userInput)
+        {
+            Id = userInput.Id;
+            FirstName = userInput.FirstName;
+            LastName = userInput.LastName;
+            UserName = userInput.UserName;
+            Role = userInput.Role;
+            IsInactive = userInput.IsInactive;
+        }
     }
 }

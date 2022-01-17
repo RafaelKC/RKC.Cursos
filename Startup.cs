@@ -9,6 +9,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using RKC.Cursos.Authentications;
 using RKC.Cursos.Context;
+using RKC.Cursos.Users.Services;
 
 namespace RKC.Cursos
 {
@@ -31,6 +32,7 @@ namespace RKC.Cursos
                     options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection"));
                 })
                 .AddTransient<IAuthenticationService, AuthenticationService>()
+                .AddTransient<IUserRepositoryService, UserRepositoryService>()
                 .AddCors()
                 .AddControllers();
                 services
