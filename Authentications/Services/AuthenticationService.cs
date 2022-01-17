@@ -6,7 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using RKC.Cursos.Users;
 
-namespace RKC.Cursos.Authentications
+namespace RKC.Cursos.Authentications.Services
 {
     public class AuthenticationService : IAuthenticationService
     {

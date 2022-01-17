@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using RKC.Cursos.Authentications;
+using RKC.Cursos.Authentications.Enums;
+using RKC.Cursos.Authentications.Services;
 using RKC.Cursos.Context;
 using RKC.Cursos.Users.Abstractions;
 using RKC.Cursos.Users.Dtos;
@@ -10,13 +13,15 @@ using RKC.Cursos.Users.Enums;
 
 namespace RKC.Cursos.Users.Services
 {
-    public class UserRepositoryService : IUserRepositoryService
+    public class UserService : IUserService
     {
-        public readonly CursosContext _context;
+        private readonly CursosContext _context;
+        private readonly ICredentialRepositoryService _credentialRepository;
 
-        public UserRepositoryService(CursosContext context)
+        public UserService(CursosContext context, ICredentialRepositoryService credentialRepository)
         {
             _context = context;
+            _credentialRepository = credentialRepository;
         }
 
         public async Task<List<UserOutput>> GetList(UserGetListInput filterInput)
@@ -43,24 +48,49 @@ namespace RKC.Cursos.Users.Services
 
         public async Task<UserRepositoryResult> Create(UserInput userInput)
         {
+            var userAlreadyCreated = await _context.Users.AnyAsync(user =>
+                user.Id == userInput.Id || user.Email == userInput.Email);
+            if (userAlreadyCreated) return UserRepositoryResult.UserAlredyCreated;
+            
             userInput.IsInactive = false;
 
             var newUser = new User(userInput);
-
             await _context.Users.AddAsync(newUser);
+
+            var credential = new Credential
+            {
+                Id = Guid.NewGuid(),
+                Email = newUser.Email,
+                Password = userInput.Password,
+                UserId = newUser.Id
+            };
+
+            var credentialResult = await _credentialRepository.Create(credential);
+
+            if (credentialResult == CredentialRepositoryResult.CredentialAlredyCreated)
+                return UserRepositoryResult.UserAlredyCreated;
+            
             await _context.SaveChangesAsync();
             return UserRepositoryResult.Ok;
         }
 
-        public async Task<UserRepositoryResult> Update(Guid userId, IUser userInput)
+        public async Task<UserRepositoryResult> Update(Guid userId, UserInput userInput)
         {
             var userCreated = await _context.Users.FirstOrDefaultAsync(user => user.Id == userId);
-            if (userCreated == null)
-            {
-                return UserRepositoryResult.NotFound;
-            }
-            
+            if (userCreated == null) return UserRepositoryResult.NotFound;
             userCreated.Update(userInput);
+
+            var credential = await _credentialRepository.GetByUserId(userId);
+            if (credential == null) return UserRepositoryResult.NotFound;
+            credential.Email = userInput.Email;
+            credential.Password = userInput.Password;
+
+            _context.Users.Update(userCreated);
+            
+            var credentialResult = await _credentialRepository.Update(userId, credential);
+
+            if (credentialResult == CredentialRepositoryResult.NotFound) return UserRepositoryResult.NotFound;
+            
             await _context.SaveChangesAsync();
             return UserRepositoryResult.Ok;
         }

@@ -19,5 +19,6 @@ namespace RKC.Cursos.Users.Dtos
         [Required]
         public UserRole Role { get; set; }
         public bool IsInactive { get; set; }
+        public string Password { get; set; }
     }
 }

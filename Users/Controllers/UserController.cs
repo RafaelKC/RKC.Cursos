@@ -13,9 +13,9 @@ namespace RKC.Cursos.Users.Controllers
     [Route("cursos/user")]
     public class UserController : ControllerBase
     {
-        private readonly IUserRepositoryService _repositoryService;
+        private readonly IUserService _repositoryService;
 
-        public UserController(IUserRepositoryService repositoryService)
+        public UserController(IUserService repositoryService)
         {
             _repositoryService = repositoryService;
         }
@@ -47,7 +47,7 @@ namespace RKC.Cursos.Users.Controllers
         
         [HttpGet("{userId:guid}")]
         [Authorize(Roles = "SystemAdmin")]
-        public async Task<ActionResult<UserOutput>> Update([FromRoute] Guid userId, [FromBody] IUser userInput)
+        public async Task<ActionResult<UserOutput>> Update([FromRoute] Guid userId, [FromBody] UserInput userInput)
         {
             var userResult = await _repositoryService.Update(userId, userInput);
             if (userResult == UserRepositoryResult.NotFound)

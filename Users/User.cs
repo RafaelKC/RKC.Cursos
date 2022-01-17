@@ -41,6 +41,9 @@ namespace RKC.Cursos.Users
             Email = userInput.Email;
         }
         
+        public User()
+        {}
+        
         public User(UserInput userInput)
         {
             Id = userInput.Id;
