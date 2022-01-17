@@ -21,7 +21,7 @@ namespace RKC.Cursos.Authentications
         {
             var keyByte = Encoding.ASCII.GetBytes(_configuration.GetSection("CursosSettings").GetSection("AuthenticationKey").Value);
             var expirationTimeInMinutes = _configuration.GetSection("CursosSettings").GetSection("authenticationTimeoutInMinutes").Value;
-            
+
             var tokenHandler = new JwtSecurityTokenHandler();
             var tokenDescripotor = new SecurityTokenDescriptor
             {

@@ -13,7 +13,12 @@ namespace RKC.Cursos.Users.Services
     public class UserRepositoryService : IUserRepositoryService
     {
         public readonly CursosContext _context;
-        
+
+        public UserRepositoryService(CursosContext context)
+        {
+            _context = context;
+        }
+
         public async Task<List<UserOutput>> GetList(UserGetListInput filterInput)
         {
             var query = _context.Users.AsQueryable();
