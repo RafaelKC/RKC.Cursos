@@ -32,7 +32,8 @@ namespace RKC.Cursos.Migrations
                     Email = table.Column<string>(type: "text", nullable: false),
                     UserName = table.Column<string>(type: "text", nullable: true),
                     Role = table.Column<int>(type: "integer", nullable: false),
-                    IsInactive = table.Column<bool>(type: "boolean", nullable: false)
+                    IsInactive = table.Column<bool>(type: "boolean", nullable: false),
+                    Email = table.Column<string>(type: "text", nullable: true),
                 },
                 constraints: table =>
                 {
