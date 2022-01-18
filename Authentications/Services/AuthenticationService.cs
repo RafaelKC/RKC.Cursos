@@ -4,9 +4,9 @@ using System.Security.Claims;
 using System.Text;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using RKC.Cursos.Users;
+using RKC.Cursos.Users.Dtos;
 
-namespace RKC.Cursos.Authentications
+namespace RKC.Cursos.Authentications.Services
 {
     public class AuthenticationService : IAuthenticationService
     {
@@ -17,7 +17,7 @@ namespace RKC.Cursos.Authentications
             _configuration = configuration;
         }
         
-        public string GenerateToken(User user)
+        public string GenerateToken(UserOutput user)
         {
             var keyByte = Encoding.ASCII.GetBytes(_configuration.GetSection("CursosSettings").GetSection("AuthenticationKey").Value);
             var expirationTimeInMinutes = _configuration.GetSection("CursosSettings").GetSection("authenticationTimeoutInMinutes").Value;

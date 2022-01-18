@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using RKC.Cursos.Users.Abstractions;
 using RKC.Cursos.Users.Dtos;
 using RKC.Cursos.Users.Enums;
 using RKC.Cursos.Users.Services;
@@ -13,9 +12,9 @@ namespace RKC.Cursos.Users.Controllers
     [Route("cursos/user")]
     public class UserController : ControllerBase
     {
-        private readonly IUserRepositoryService _repositoryService;
+        private readonly IUserService _repositoryService;
 
-        public UserController(IUserRepositoryService repositoryService)
+        public UserController(IUserService repositoryService)
         {
             _repositoryService = repositoryService;
         }
@@ -24,10 +23,16 @@ namespace RKC.Cursos.Users.Controllers
         [Authorize(Roles = "SystemAdmin")]
         public async Task<ActionResult> Create([FromBody] UserInput userInput)
         {
+            if (string.IsNullOrEmpty(userInput.Email)
+                || string.IsNullOrEmpty(userInput.Password)
+                || string.IsNullOrEmpty(userInput.FirstName)
+                || string.IsNullOrEmpty(userInput.LastName)) return BadRequest("Input fail validation");
+            
             return Ok(await _repositoryService.Create(userInput));
         }
         
         [HttpGet("{userId:guid}")]
+        [Authorize]
         public async Task<ActionResult<UserOutput>> Get([FromRoute] Guid userId)
         {
             var user = await _repositoryService.Get(userId);
@@ -36,26 +41,31 @@ namespace RKC.Cursos.Users.Controllers
                 return NotFound();
             }
 
-            return Ok(User);
+            return Ok(user);
         }
         
         [HttpGet]
-        public async Task<ActionResult<List<UserOutput>>> GetList([FromBody] UserGetListInput filterInput)
+        [Authorize]
+        public async Task<ActionResult<List<UserOutput>>> GetList([FromQuery] UserGetListInput filterInput)
         {
             return Ok(await _repositoryService.GetList(filterInput));
         }
         
-        [HttpGet("{userId:guid}")]
+        [HttpPut("{userId:guid}")]
         [Authorize(Roles = "SystemAdmin")]
-        public async Task<ActionResult<UserOutput>> Update([FromRoute] Guid userId, [FromBody] IUser userInput)
+        public async Task<ActionResult<UserOutput>> Update([FromRoute] Guid userId, [FromBody] UserInput userInput)
         {
-            var userResult = await _repositoryService.Update(userId, userInput);
-            if (userResult == UserRepositoryResult.NotFound)
-            {
-                return NotFound();
-            }
+            if (string.IsNullOrEmpty(userInput.Email)
+                || string.IsNullOrEmpty(userInput.FirstName)
+                || string.IsNullOrEmpty(userInput.LastName)) return BadRequest("Input fail validation");
 
-            return Ok();
+            var userResult = await _repositoryService.Update(userId, userInput);
+            return userResult switch
+            {
+                UserRepositoryResult.NotFound => NotFound(),
+                UserRepositoryResult.CantUpdateSystemAdmin => BadRequest("Can't update System Admin"),
+                _ => Ok()
+            };
         }
     }
 }

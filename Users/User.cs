@@ -18,16 +18,7 @@ namespace RKC.Cursos.Users
         public string LastName { get; set; }
         [Required(AllowEmptyStrings = false)]
         public string Email { get; set; }
-
-        [Column("UserName")] 
-        public string _userName { get; set; }
-
-        [NotMapped]
-        public string UserName
-        {
-            get => !string.IsNullOrEmpty(_userName) ? _userName : $"{FirstName} {LastName}";
-            set => _userName = value;
-        }
+        public string UserName { get; set; }
         public UserRole Role { get; set; }
         public bool IsInactive { get; set; }
 
@@ -40,6 +31,9 @@ namespace RKC.Cursos.Users
             IsInactive = userInput.IsInactive;
             Email = userInput.Email;
         }
+        
+        public User()
+        {}
         
         public User(UserInput userInput)
         {
