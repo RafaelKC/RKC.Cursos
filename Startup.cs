@@ -10,6 +10,7 @@ using Microsoft.IdentityModel.Tokens;
 using RKC.Cursos.Authentications;
 using RKC.Cursos.Authentications.Services;
 using RKC.Cursos.Context;
+using RKC.Cursos.Modulos.Services;
 using RKC.Cursos.Users.Services;
 
 namespace RKC.Cursos
@@ -35,6 +36,7 @@ namespace RKC.Cursos
                 .AddTransient<IAuthenticationService, AuthenticationService>()
                 .AddTransient<IUserService, UserService>()
                 .AddTransient<ICredentialRepositoryService, CredentialRepositoryService>()
+                .AddTransient<IModuloRepositoryService, ModuloRepositoryService>()
                 .AddCors()
                 .AddControllers();
                 services
