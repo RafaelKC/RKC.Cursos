@@ -10,8 +10,8 @@ using RKC.Cursos.Context;
 namespace RKC.Cursos.Migrations
 {
     [DbContext(typeof(CursosContext))]
-    [Migration("20220117215755_AddedUserAndCredential")]
-    partial class AddedUserAndCredential
+    [Migration("20220118223959_AddedEntities")]
+    partial class AddedEntities
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -21,6 +21,30 @@ namespace RKC.Cursos.Migrations
                 .HasAnnotation("ProductVersion", "5.0.10")
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
+            modelBuilder.Entity("RKC.Cursos.Aulas.Aula", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<int>("CargaHoraria")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("DataAcontecer")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<Guid>("ModuloId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Aulas");
+                });
+
             modelBuilder.Entity("RKC.Cursos.Authentications.Credential", b =>
                 {
                     b.Property<Guid>("Id")
@@ -28,9 +52,11 @@ namespace RKC.Cursos.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<string>("Email")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Password")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<Guid>("UserId")
@@ -39,6 +65,21 @@ namespace RKC.Cursos.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Credentials");
+                });
+
+            modelBuilder.Entity("RKC.Cursos.Modulos.Modulo", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Modulos");
                 });
 
             modelBuilder.Entity("RKC.Cursos.Users.User", b =>
@@ -65,9 +106,8 @@ namespace RKC.Cursos.Migrations
                     b.Property<int>("Role")
                         .HasColumnType("integer");
 
-                    b.Property<string>("_userName")
-                        .HasColumnType("text")
-                        .HasColumnName("UserName");
+                    b.Property<string>("UserName")
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 

@@ -25,13 +25,17 @@ namespace RKC.Cursos.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
+                    b.Property<int>("CargaHoraria")
+                        .HasColumnType("integer");
+
                     b.Property<DateTime>("DataAcontecer")
                         .HasColumnType("timestamp without time zone");
 
-                    b.Property<Guid>("IdModulo")
+                    b.Property<Guid>("ModuloId")
                         .HasColumnType("uuid");
 
                     b.Property<string>("Nome")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("Id");

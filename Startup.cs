@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
+using RKC.Cursos.Aulas.Services;
 using RKC.Cursos.Authentications;
 using RKC.Cursos.Authentications.Services;
 using RKC.Cursos.Context;
@@ -37,6 +38,7 @@ namespace RKC.Cursos
                 .AddTransient<IUserService, UserService>()
                 .AddTransient<ICredentialRepositoryService, CredentialRepositoryService>()
                 .AddTransient<IModuloRepositoryService, ModuloRepositoryService>()
+                .AddTransient<IAulaRepositoryService, AulaRepositoryService>()
                 .AddCors()
                 .AddControllers();
                 services

@@ -1,37 +1,24 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
 using RKC.Cursos.Aulas.Abstractions;
-using RKC.Cursos.Aulas.Dtos;
 
-namespace RKC.Cursos.Aulas
+namespace RKC.Cursos.Aulas.Dtos
 {
-    public class Aula : IAula
+    public class AulaOutput : IAula
     {
         public Guid Id { get; set; }
         public Guid ModuloId { get; set; }
-        [Required(AllowEmptyStrings = false)]
         public string Nome { get; set; }
-
         public int CargaHoraria { get; set; }
         public DateTime DataAcontecer { get; set; }
-        
-        public Aula()
-        {}
-        
-        public Aula(AulaInput aulaInput)
+
+        public AulaOutput(Aula aulaInput)
         {
             Id = aulaInput.Id;
             ModuloId = aulaInput.ModuloId;
             Nome = aulaInput.Nome;
             DataAcontecer = aulaInput.DataAcontecer;
             CargaHoraria = aulaInput.CargaHoraria;
-        }
-        
-        public void Update(IAula aulaInput)
-        {
-            Nome = aulaInput.Nome;
-            DataAcontecer = aulaInput.DataAcontecer;
-            CargaHoraria = aulaInput.CargaHoraria;
+            
         }
     }
 }

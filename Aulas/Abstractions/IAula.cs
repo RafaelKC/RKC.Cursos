@@ -4,8 +4,9 @@ namespace RKC.Cursos.Aulas.Abstractions
 {
     public interface IAula
     {
-        public Guid IdModulo { get; set; } 
+        public Guid ModuloId { get; set; } 
         public string Nome { get; set; }
+        public int CargaHoraria { get; set; }
         public DateTime DataAcontecer { get; set; }
     }
 }
