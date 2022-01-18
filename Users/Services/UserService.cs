@@ -84,19 +84,14 @@ namespace RKC.Cursos.Users.Services
             
             var userCreated = await _context.Users.FirstOrDefaultAsync(user => user.Id == userId);
             if (userCreated == null) return UserRepositoryResult.NotFound;
+
+            if (string.IsNullOrEmpty(userInput.UserName))
+            {
+                userInput.UserName = userCreated.UserName;
+            }
             userCreated.Update(userInput);
-
-            var credential = await _credentialRepository.GetByUserId(userId);
-            if (credential == null) return UserRepositoryResult.NotFound;
-            credential.Email = userInput.Email;
-            credential.Password = userInput.Password;
-
             _context.Users.Update(userCreated);
-            
-            var credentialResult = await _credentialRepository.Update(userId, credential);
 
-            if (credentialResult == CredentialRepositoryResult.NotFound) return UserRepositoryResult.NotFound;
-            
             await _context.SaveChangesAsync();
             return UserRepositoryResult.Ok;
         }

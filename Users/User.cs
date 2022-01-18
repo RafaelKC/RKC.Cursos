@@ -29,7 +29,6 @@ namespace RKC.Cursos.Users
             UserName = userInput.UserName;
             Role = userInput.Role;
             IsInactive = userInput.IsInactive;
-            Email = userInput.Email;
         }
         
         public User()
