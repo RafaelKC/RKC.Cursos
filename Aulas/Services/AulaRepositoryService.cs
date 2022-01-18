@@ -65,7 +65,7 @@ namespace RKC.Cursos.Aulas.Services
             return AulaRepositoryResult.Ok;
         }
 
-        public async Task<AulaRepositoryResult> Update(Guid moduloId, Guid aulaId)
+        public async Task<AulaRepositoryResult> Delete(Guid moduloId, Guid aulaId)
         {
             var aulaCreated = await _context.Aulas.FirstOrDefaultAsync(aula => aula.Id == aulaId && aula.ModuloId == moduloId);
             if (aulaCreated == null) return AulaRepositoryResult.NotFound;

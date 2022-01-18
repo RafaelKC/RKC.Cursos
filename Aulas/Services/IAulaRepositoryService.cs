@@ -13,6 +13,6 @@ namespace RKC.Cursos.Aulas.Services
         public Task<AulaOutput> Get(Guid moduloId, Guid aulaId);
         public Task<List<AulaOutput>> GetList(List<Guid> modulosIds, string nameFilter);
         public Task<AulaRepositoryResult> Update(Guid moduloId, Guid aulaId, IAula aulaInput);
-        public Task<AulaRepositoryResult> Update(Guid moduloId, Guid aulaId);
+        public Task<AulaRepositoryResult> Delete(Guid moduloId, Guid aulaId);
     }
 }
