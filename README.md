@@ -20,3 +20,10 @@
 * GetList `cursos/modulos` (GET) pode receber pela query uma string para filtrar por nome, retorna lista de ModulosOutput;
 * Update `cursos/modulos/{id:guid}` (PUT) recebe id do módulo e ModuloInput, atualiza modulo;
 * Delete `cursos/modulos/{id:guid}` (DELETE) recebe id do módulo e deleta modulo;
+
+## Aulas
+* Create `cursos/modulos/{idModulo:guid}/aulas` (POST) recebe AulaInput e id do modulo, cria aula para esse modulo;
+* Get `cursos/modulos/{idModulo:guid}/aulas/{idAula:Guid}` (GET) recebe id do modulo e de aula, retorn AulaOutput com esse id de aula e modulo;
+* GetList `cursos/modulos/{idModulo:guid}/aulas` (GET) recebe id do modulo e pode aulaFiltro, retorna AulasOutput desse modulo;
+* Update `cursos/modulos/{idModulo:guid}/aulas/{idAula:Guid}` (PUT) recebe AulaInput, id do modulo e de aula, atualiza aula com esse id e moduloId;
+* Delete `cursos/modulos/{idModulo:guid}/aulas/{idAula:Guid}` (DELETE) recebe id do modulo e de aula, delete aula com esse id e moduloId;
