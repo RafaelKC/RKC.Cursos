@@ -40,9 +40,16 @@ namespace RKC.Cursos.Authentications.Services
             var credentialCreated = await _context.Credentials.FirstOrDefaultAsync(credential => credential.UserId == userId);
             if (credentialCreated == null) return CredentialRepositoryResult.NotFound;
 
-            credentialInput.Password = EncryptPassword(credentialInput.Password);
+            if (!string.IsNullOrEmpty(credentialInput.Password))
+            {
+                credentialCreated.Password = EncryptPassword(credentialInput.Password);
+            }
+
+            if (!string.IsNullOrEmpty(credentialInput.Email))
+            {
+                credentialCreated.Email = credentialInput.Email;
+            }
             
-            credentialCreated.Update(credentialInput);
             _context.Credentials.Update(credentialCreated);
             await _context.SaveChangesAsync();
             

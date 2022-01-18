@@ -65,10 +65,10 @@ namespace RKC.Cursos.Modulos.Services
 
         public async Task<ModuloRepositoryResult> Delete(Guid moduloId)
         {
-            var moduloCreated = await _context.Modulos.AnyAsync(modulo => modulo.Id == moduloId);
-            if (!moduloCreated) return ModuloRepositoryResult.NotFound;
+            var moduloCreated = await _context.Modulos.FirstOrDefaultAsync(modulo => modulo.Id == moduloId);
+            if (moduloCreated == null) return ModuloRepositoryResult.NotFound;
 
-            _context.Remove(moduloId);
+            _context.Remove(moduloCreated);
             await _context.SaveChangesAsync();
             
             return ModuloRepositoryResult.Ok;

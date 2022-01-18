@@ -7,6 +7,9 @@ namespace RKC.Cursos.Modulos.Dtos
     {
         public Guid Id { get; set; }
         public string Nome { get; set; }
+        public int TotalAulas { get; set; }
+        public int TotalHorasAula { get; set; }
+        
 
         public ModuloOutput(Modulo moduloInput)
         {
