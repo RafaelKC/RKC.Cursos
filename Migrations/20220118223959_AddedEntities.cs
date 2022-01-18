@@ -1,25 +1,51 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
-using RKC.Cursos.Users.Enums;
 
 namespace RKC.Cursos.Migrations
 {
-    public partial class AddedUserAndCredential : Migration
+    public partial class AddedEntities : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "Aulas",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    ModuloId = table.Column<Guid>(type: "uuid", nullable: false),
+                    Nome = table.Column<string>(type: "text", nullable: false),
+                    CargaHoraria = table.Column<int>(type: "integer", nullable: false),
+                    DataAcontecer = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Aulas", x => x.Id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "Credentials",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     UserId = table.Column<Guid>(type: "uuid", nullable: false),
-                    Email = table.Column<string>(type: "text", nullable: true),
-                    Password = table.Column<string>(type: "text", nullable: true)
+                    Email = table.Column<string>(type: "text", nullable: false),
+                    Password = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Credentials", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Modulos",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Nome = table.Column<string>(type: "text", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Modulos", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -32,12 +58,13 @@ namespace RKC.Cursos.Migrations
                     Email = table.Column<string>(type: "text", nullable: false),
                     UserName = table.Column<string>(type: "text", nullable: true),
                     Role = table.Column<int>(type: "integer", nullable: false),
-                    IsInactive = table.Column<bool>(type: "boolean", nullable: false),
+                    IsInactive = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Users", x => x.Id);
                 });
+            
             migrationBuilder.InsertData(
                 table: "Credentials",
                 columns: new[] {"Id", "UserId", "Email", "Password"},
@@ -66,7 +93,13 @@ namespace RKC.Cursos.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "Aulas");
+
+            migrationBuilder.DropTable(
                 name: "Credentials");
+
+            migrationBuilder.DropTable(
+                name: "Modulos");
 
             migrationBuilder.DropTable(
                 name: "Users");
