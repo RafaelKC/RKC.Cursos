@@ -26,7 +26,7 @@ namespace RKC.Cursos.Users.Services
 
         public async Task<List<UserOutput>> GetList(UserGetListInput filterInput)
         {
-            var query = _context.Users.AsQueryable();
+            var query = _context.Users.AsNoTracking().AsQueryable();
 
             if (filterInput.FilterByUserRole.HasValue)
             {
@@ -103,13 +103,16 @@ namespace RKC.Cursos.Users.Services
 
         public async Task<UserOutput> Get(Guid userId)
         {
-            var user =  await _context.Users.FirstOrDefaultAsync(user => user.Id == userId);
+            var user =  await _context.Users
+                .AsNoTracking()
+                .FirstOrDefaultAsync(user => user.Id == userId);
             return user != null ? new UserOutput(user) : null;
         }
 
         public async Task<UserOutput> GetByEmailOrUserName(string emailOrUserName)
         {
-            var user =  await _context.Users.FirstOrDefaultAsync(user => 
+            var user =  await _context.Users
+                .AsNoTracking().FirstOrDefaultAsync(user => 
                 user.Email == emailOrUserName || user.UserName == emailOrUserName);
             return user != null ? new UserOutput(user) : null;
         }
