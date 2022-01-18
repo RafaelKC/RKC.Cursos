@@ -12,3 +12,11 @@
 
 #### Endpoints de Autenticação
 * Login: `cursos/authentication/login` (POST) não precisa de autenticação, recebe no Body LoginInput e retornar LoginOutput com o _BearerToken_ 
+
+
+## Módulos
+* Create `cursos/modulos` (POST) recebe ModuloInput, usado para criar modulos;
+* Get `cursos/modulos/{id:guid}` (GET) recebe id do módulo e retorna um ModuloOutput;
+* GetList `cursos/modulos` (GET) pode receber pela query uma string para filtrar por nome, retorna lista de ModulosOutput;
+* Update `cursos/modulos/{id:guid}` (PUT) recebe id do módulo e ModuloInput, atualiza modulo;
+* Delete `cursos/modulos/{id:guid}` (DELETE) recebe id do módulo e deleta modulo;
