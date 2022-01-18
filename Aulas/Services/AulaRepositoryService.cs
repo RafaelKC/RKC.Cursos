@@ -39,10 +39,10 @@ namespace RKC.Cursos.Aulas.Services
             return aula != null ? new AulaOutput(aula) : null;
         }
 
-        public async Task<List<AulaOutput>> GetList(Guid moduloId, string nameFilter)
+        public async Task<List<AulaOutput>> GetList(List<Guid> modulosIds, string nameFilter)
         {
             var query = _context.Aulas
-                .Where(aula => aula.ModuloId == moduloId)
+                .Where(aula => modulosIds.Contains(aula.ModuloId))
                 .AsNoTracking().AsQueryable();
 
             if (!string.IsNullOrEmpty(nameFilter))

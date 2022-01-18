@@ -10,6 +10,8 @@ namespace RKC.Cursos.Aulas.Dtos
         public Guid ModuloId { get; set; }
         [Required(AllowEmptyStrings = false)]
         public string Nome { get; set; }
+
+        public int CargaHoraria { get; set; }
         public DateTime DataAcontecer { get; set; }
     };
 }

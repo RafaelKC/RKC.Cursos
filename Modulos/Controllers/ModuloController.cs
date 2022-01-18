@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using RKC.Cursos.Aulas.Services;
 using RKC.Cursos.Modulos.Dtos;
 using RKC.Cursos.Modulos.Enums;
 using RKC.Cursos.Modulos.Services;
@@ -13,10 +15,12 @@ namespace RKC.Cursos.Modulos.Controllers
     public class ModuloController : ControllerBase
     {
         private readonly IModuloRepositoryService _moduloRepository;
+        private readonly IAulaRepositoryService _aulaRepository;
 
-        public ModuloController(IModuloRepositoryService moduloRepository)
+        public ModuloController(IModuloRepositoryService moduloRepository, IAulaRepositoryService aulaRepository)
         {
             _moduloRepository = moduloRepository;
+            _aulaRepository = aulaRepository;
         }
 
         [HttpPost]
@@ -37,8 +41,12 @@ namespace RKC.Cursos.Modulos.Controllers
         public async Task<ActionResult<ModuloOutput>> Get([FromRoute] Guid idModulo)
         {
             var modulo = await _moduloRepository.Get(idModulo);
-
             if (modulo == null) return NotFound();
+            
+            var aulas = await _aulaRepository.GetList(new List<Guid>{modulo.Id}, null);
+            modulo.TotalAulas = aulas.Count;
+            modulo.TotalHorasAula = aulas.Sum(aula => aula.CargaHoraria);
+            
             return Ok(modulo);
         }
         
@@ -46,7 +54,21 @@ namespace RKC.Cursos.Modulos.Controllers
         [Authorize]
         public async Task<ActionResult<List<ModuloOutput>>> GetList([FromQuery] string nomeFilter)
         {
-            return Ok(await _moduloRepository.GetList(nomeFilter));
+            var modulos = await _moduloRepository.GetList(nomeFilter);
+            var modulosIds = modulos.Select(modulo => modulo.Id).ToList();
+
+            var aulas = await _aulaRepository.GetList(modulosIds, null);
+            
+            foreach (var modulo in modulos)
+            {
+                var aulasPorModulo = aulas.Where(aula => aula.ModuloId == modulo.Id).ToList();
+                if(!aulasPorModulo.Any()) continue;
+
+                modulo.TotalAulas = aulasPorModulo.Count;
+                modulo.TotalHorasAula = aulasPorModulo.Sum(aula => aula.CargaHoraria);
+            }
+            
+            return Ok();
         }
         
         [HttpPut("{idModulo:guid}")]
