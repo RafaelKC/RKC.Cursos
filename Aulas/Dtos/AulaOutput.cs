@@ -8,7 +8,7 @@ namespace RKC.Cursos.Aulas.Dtos
         public Guid Id { get; set; }
         public Guid ModuloId { get; set; }
         public string Nome { get; set; }
-        public int CargaHoraria { get; set; }
+        public int Duracao { get; set; }
         public DateTime DataAcontecer { get; set; }
 
         public AulaOutput(Aula aulaInput)
@@ -17,7 +17,7 @@ namespace RKC.Cursos.Aulas.Dtos
             ModuloId = aulaInput.ModuloId;
             Nome = aulaInput.Nome;
             DataAcontecer = aulaInput.DataAcontecer;
-            CargaHoraria = aulaInput.CargaHoraria;
+            Duracao = aulaInput.Duracao;
             
         }
     }
