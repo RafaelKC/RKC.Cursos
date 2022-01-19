@@ -14,7 +14,7 @@ namespace RKC.Cursos.Migrations
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     ModuloId = table.Column<Guid>(type: "uuid", nullable: false),
                     Nome = table.Column<string>(type: "text", nullable: false),
-                    CargaHoraria = table.Column<int>(type: "integer", nullable: false),
+                    Duracao = table.Column<int>(type: "integer", nullable: false),
                     DataAcontecer = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
                 },
                 constraints: table =>

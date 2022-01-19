@@ -11,7 +11,7 @@ namespace RKC.Cursos.Aulas.Dtos
         [Required(AllowEmptyStrings = false)]
         public string Nome { get; set; }
 
-        public int CargaHoraria { get; set; }
+        public int Duracao { get; set; }
         public DateTime DataAcontecer { get; set; }
     };
 }

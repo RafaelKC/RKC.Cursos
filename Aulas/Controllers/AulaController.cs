@@ -44,9 +44,9 @@ namespace RKC.Cursos.Aulas.Controllers
         
         [HttpGet]
         [Authorize]
-        public async Task<ActionResult<List<AulaOutput>>> GetList([FromRoute] Guid moduloId, [FromQuery] string filterNome)
+        public async Task<ActionResult<List<AulaOutput>>> GetList([FromRoute] Guid moduloId, [FromQuery] string nomeFilter)
         {
-            return Ok(await _aulaRepository.GetList(new List<Guid>{moduloId}, filterNome));
+            return Ok(await _aulaRepository.GetList(new List<Guid>{moduloId}, nomeFilter));
         }
         
         [HttpPut("{aulaId:guid}")]

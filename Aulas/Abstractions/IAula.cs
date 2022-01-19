@@ -6,7 +6,7 @@ namespace RKC.Cursos.Aulas.Abstractions
     {
         public Guid ModuloId { get; set; } 
         public string Nome { get; set; }
-        public int CargaHoraria { get; set; }
+        public int Duracao { get; set; }
         public DateTime DataAcontecer { get; set; }
     }
 }

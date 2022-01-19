@@ -12,7 +12,7 @@ namespace RKC.Cursos.Aulas
         [Required(AllowEmptyStrings = false)]
         public string Nome { get; set; }
 
-        public int CargaHoraria { get; set; }
+        public int Duracao { get; set; }
         public DateTime DataAcontecer { get; set; }
         
         public Aula()
@@ -24,14 +24,14 @@ namespace RKC.Cursos.Aulas
             ModuloId = aulaInput.ModuloId;
             Nome = aulaInput.Nome;
             DataAcontecer = aulaInput.DataAcontecer;
-            CargaHoraria = aulaInput.CargaHoraria;
+            Duracao = aulaInput.Duracao;
         }
         
         public void Update(IAula aulaInput)
         {
             Nome = aulaInput.Nome;
             DataAcontecer = aulaInput.DataAcontecer;
-            CargaHoraria = aulaInput.CargaHoraria;
+            Duracao = aulaInput.Duracao;
         }
     }
 }

@@ -45,7 +45,7 @@ namespace RKC.Cursos.Modulos.Controllers
             
             var aulas = await _aulaRepository.GetList(new List<Guid>{modulo.Id}, null);
             modulo.TotalAulas = aulas.Count;
-            modulo.TotalHorasAula = aulas.Sum(aula => aula.CargaHoraria);
+            modulo.TotalHorasAula = aulas.Sum(aula => aula.Duracao);
             
             return Ok(modulo);
         }
@@ -65,7 +65,7 @@ namespace RKC.Cursos.Modulos.Controllers
                 if(!aulasPorModulo.Any()) continue;
 
                 modulo.TotalAulas = aulasPorModulo.Count;
-                modulo.TotalHorasAula = aulasPorModulo.Sum(aula => aula.CargaHoraria);
+                modulo.TotalHorasAula = aulasPorModulo.Sum(aula => aula.Duracao);
             }
             
             return Ok(modulos);

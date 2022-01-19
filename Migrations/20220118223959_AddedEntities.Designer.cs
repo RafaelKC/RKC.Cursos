@@ -27,7 +27,7 @@ namespace RKC.Cursos.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<int>("CargaHoraria")
+                    b.Property<int>("Duracao")
                         .HasColumnType("integer");
 
                     b.Property<DateTime>("DataAcontecer")
