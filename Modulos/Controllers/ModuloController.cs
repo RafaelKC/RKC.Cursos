@@ -68,7 +68,7 @@ namespace RKC.Cursos.Modulos.Controllers
                 modulo.TotalHorasAula = aulasPorModulo.Sum(aula => aula.CargaHoraria);
             }
             
-            return Ok();
+            return Ok(modulos);
         }
         
         [HttpPut("{idModulo:guid}")]
