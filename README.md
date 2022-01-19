@@ -12,7 +12,7 @@
 <a id="ancora1"></a>
 ## Instalação
 
-O projeto pode ser rodado localmente via console, ele usa banco de dados PostgreSQL e .NET 5.0;
+O projeto pode ser rodado localmente via console, ele usa banco de dados PostgreSQL e .NET 5.0. Ele poderá ser acessado no localhost na porta **50000**.
 
 <a id="ancora7"></a>
 #### Rodando no console

@@ -58,7 +58,7 @@ namespace RKC.Cursos
                             ValidateIssuer = true,
                             ValidIssuer = "RKC.Cursos",
                             ValidateAudience = false,
-                            ValidateLifetime = false
+                            ValidateLifetime = true
                         };
                     });
 
