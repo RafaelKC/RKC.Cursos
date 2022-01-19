@@ -34,7 +34,7 @@ namespace RKC.Cursos.Aulas.Controllers
         
         [HttpGet("{aulaId:guid}")]
         [Authorize]
-        public async Task<ActionResult<AulaOutput>> Get([FromRoute] Guid moduloId, [FromBody] Guid aulaId)
+        public async Task<ActionResult<AulaOutput>> Get([FromRoute] Guid moduloId, [FromRoute] Guid aulaId)
         {
             var aula = await _aulaRepository.Get(moduloId, aulaId);
             if (aula == null) return NotFound();
