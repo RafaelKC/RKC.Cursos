@@ -1,5 +1,11 @@
 # RKC.Cursos
 
+## TAGs:
+  1.0.0 - Ok não possui Docker;
+  1.0.1 - Não usar com Docker;
+  1.0.2 - Ok para Docker;
+
+
 - [Instalação](#ancora1)
   - [Rodando no Console](#ancora7)
   - [Rodando no Docker](#ancora8)
