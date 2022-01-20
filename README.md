@@ -4,6 +4,7 @@
   1.0.0 - Ok não possui Docker; <br>
   1.0.1 - Não usar com Docker; <br>
   1.0.2 - Ok para Docker;
+  1.0.3 - Ok para Docker
 
 ### Sumário:
 - [Instalação](#ancora1)
@@ -19,7 +20,7 @@
 <a id="ancora1"></a>
 ## Instalação
 
-O projeto pode ser rodado localmente via console ou pelo Docker, ele usa banco de dados PostgreSQL e .NET 5.0. Ele poderá ser acessado no localhost na porta **50000** ou **88** se for rodado pelo docker.
+O projeto pode ser rodado localmente via console ou pelo Docker, ele usa banco de dados PostgreSQL e .NET 5.0. Ele poderá ser acessado no localhost na porta **50000** ou **2080** se for rodado pelo docker.
 
 <a id="ancora7"></a>
 #### Rodando no console
@@ -46,7 +47,7 @@ Roda no Docker o extremamente mais simples, poucos passos necessários mas neces
 
 1. Fazer clone do projeto: `git clone git@github.com:RafaelKC/RKC.Cursos.git`;
 2. Pelo console na pasta raiz do projeto rode `docker-compose up -d`;
-3. Quando terminar de suber e criar os containers o serviço estará rodando na porta **88**;
+3. Quando terminar de suber e criar os containers o serviço estará rodando na porta **2080**;
 4. O _database_ poderá ser acessado pela porta **8400**;
 
 <a id="ancora2"></a>
