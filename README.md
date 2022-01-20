@@ -41,6 +41,7 @@ Roda no Docker o extremamente mais simples, poucos passos necessários mas neces
 1. Fazer clone do projeto: `git clone git@github.com:RafaelKC/RKC.Cursos.git`;
 2. Pelo console na pasta raiz do projeto rode `docker-compose up -d`;
 3. Quando terminar de suber e criar os containers o serviço estará rodando na porta **88**;
+4. O _database_ poderá ser acessado pela porta **8400**;
 
 <a id="ancora2"></a>
 ## Usuários e Authenticação
