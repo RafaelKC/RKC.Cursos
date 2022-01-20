@@ -31,7 +31,7 @@ services:
         ports:
           - "50001:50001"
           - "50000:50000"
-          - "2080:88"
+          - "88:80"
         environment:
           - ASPNETCORE_ENVIRONMENT=Prod
           - DBHOST=db
