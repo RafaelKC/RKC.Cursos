@@ -3,7 +3,7 @@
 ### TAGs:
   1.0.0 - Ok não possui Docker; <br>
   1.0.1 - Não usar com Docker; <br>
-  1.0.2 - Ok para Docker;
+  1.0.2 - Ok para Docker; <br>
   1.0.3 - Ok para Docker
 
 ### Sumário:
