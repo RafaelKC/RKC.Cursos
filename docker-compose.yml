@@ -1,0 +1,41 @@
+﻿version: "3.8"
+
+networks:
+  backend:
+    driver: bridge
+    
+services:
+      db:
+        image: postgres
+        restart: always
+        container_name: cursos_db
+        environment:
+          POSTGRES_PASSWORD: "root"
+          bind-address: 0.0.0.0
+        ports:
+          - "8400:5432"
+        networks:
+          - backend
+        volumes:
+          - ./.docker-volumes/db/data:/var/lib/postgresql/data
+          - ./SQL_INIT/10-init.sql:/docker-entrypoint-initdb.d/10-init.sql
+        
+      cursos:
+        build:
+          context: ./
+          dockerfile: Dockerfile
+        container_name: cursos_service
+        restart: always
+        networks:
+          - backend
+        ports:
+          - "50001:50001"
+          - "50000:50000"
+          - "2080:88"
+        environment:
+          - ASPNETCORE_ENVIRONMENT=Prod
+          - DBHOST=db
+        depends_on:
+          - db
+          
+          

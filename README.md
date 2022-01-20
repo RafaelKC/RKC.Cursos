@@ -2,6 +2,7 @@
 
 - [Instalação](#ancora1)
   - [Rodando no Console](#ancora7)
+  - [Rodando no Docker](#ancora8)
 - [Login e Autenticação](#ancora2)
 - [Api](#ancora3)
   - [Módulos](#ancora4)
@@ -12,7 +13,7 @@
 <a id="ancora1"></a>
 ## Instalação
 
-O projeto pode ser rodado localmente via console, ele usa banco de dados PostgreSQL e .NET 5.0. Ele poderá ser acessado no localhost na porta **50000**.
+O projeto pode ser rodado localmente via console ou pelo Docker, ele usa banco de dados PostgreSQL e .NET 5.0. Ele poderá ser acessado no localhost na porta **50000** ou **88** se for rodado pelo docker.
 
 <a id="ancora7"></a>
 #### Rodando no console
@@ -30,7 +31,16 @@ O tuturia a baxio subentende que não há uma configuração PostgreSQL e .NET j
    1. Usuário `postgres`;
 5. **Caso utilizar valores diferetes:** configurar _ConnectionStrings_ nos arquivos _appsettings.json_ e _appsettings.Development.json_ com os valores definidos;
    1. "Server=_localhost ou ip,porta_; Host=_localhost ou ip_; Port=_porta_; Database=_nome do databse_; User Id=_usuário_; Password=_senha_;
- 2. Para executar o serviço rode pelo console na raiz do projeto ``dotnet run --project ./``;
+6. Para executar o serviço rode pelo console na raiz do projeto ``dotnet run --project ./``;
+7. O serviço estará rodando na porta **50000**;
+
+<a id="ancora8"></a>
+#### Rodando no Docker
+Roda no Docker o extremamente mais simples, poucos passos necessários mas necessita de ter o [Docker](https://www.docker.com/) intalado na máquina.
+
+1. Fazer clone do projeto: `git clone git@github.com:RafaelKC/RKC.Cursos.git`;
+2. Pelo console na pasta raiz do projeto rode `docker-compose up -d`;
+3. Quando terminar de suber e criar os containers o serviço estará rodando na porta **88**;
 
 <a id="ancora2"></a>
 ## Usuários e Authenticação
